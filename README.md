@@ -1,6 +1,14 @@
 # livro-node
 Fontes do meu livro Programação Web com Node.js (MongoDB)
 
+Para adquirir o livro, visite: https://www.luiztools.com.br/livro-nodejs
+Para conhecer o meu curso online, visite: https://www.luiztools.com.br/curso-nodejs
+Me siga também nas redes sociais:
+- Facebook: https://fb.com/luiztools
+- Twitter: https://twitter.com/luiztools
+- LinkedIn: https://linkedin.com/in/luizfduartejr
+- Youtube: https://www.luiztools.com.br/youtube
+
 Neste repositório forneço os trechos dos fontes e os projetos completos. Abaixo um pequeno resumo do conteúdo de cada pasta.
 
 ## fontes
