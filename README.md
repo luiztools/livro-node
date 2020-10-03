@@ -3,6 +3,12 @@ Fontes do meu livro Programação Web com Node.js (MongoDB)
 
 Neste repositório forneço os trechos dos fontes e os projetos completos. Abaixo um pequeno resumo do conteúdo de cada pasta.
 
+Me siga nas redes sociais: https://about.me/luiztools
+
+Conheça meus cursos online: https://www.luiztools.com.br/meus-cursos
+
+Conheça meus livros: https://www.luiztools.com.br/meus-livros
+
 ## fontes
 Todos os fontes do livro, organizados em arquivos por capítulo e sub-organizados em seções comentadas.
 
@@ -29,4 +35,3 @@ Projeto de aplicação web iniciada no capítulo 8, mas adicionando CSS, do cap�
 
 ## crudbootstrap
 Projeto de aplicação web iniciado no capítulo 6, mas adicionando Bootstrap, do capítulo 9.
-
