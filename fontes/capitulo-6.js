@@ -66,42 +66,45 @@ db.customers.deleteOne({nome: "Luiz"})
 npm install mongodb
 
 //6.23
-const mongoClient = require("mongodb").MongoClient
-mongoClient.connect("mongodb://localhost:27017/workshop", { useUnifiedTopology: true })
-            .then(conn => global.conn = conn.db("workshop"))
-            .catch(err => console.log(err))
+const {MongoClient} = require("mongodb");
+async function connect(){
+  if(global.db) return global.db;
+  const conn = await MongoClient.connect("mongodb://localhost:27017/", { useUnifiedTopology: true });
+  if(!conn) return new Error("Can't connect");
+  global.db = await conn.db("workshop");
+  return global.db;
+}
 
 module.exports = { }
 
 //6.24
-conn => global.conn = conn.db("workshop")
+global.db = await conn.db("workshop");
+return global.db;
 
 //6.25
 global.db = require('../db')
 
 //6.26
-function findAll(callback){  
-    global.conn.collection("customers").find({}).toArray(callback);
+async function findAll(){  
+    const db = await connect();
+    return db.collection("customers").find().toArray();
 }
 
 //6.27
 module.exports = { findAll }
 
 //6.28
+const db = require('../db');
 /* GET home page. */
-router.get('/', function(req, res) {
-    global.db.findAll((e, docs) => {
-        if(e) { return console.log(e); }
-        res.render('index', { docs });
-    })
-  })
+router.get('/', async function(req, res) {
+  res.render('index', {docs: await db.findAll()});
+})
 
 //6.29
 <% if(!docs || docs.length == 0) { %>
     <tr>
       <td colspan="4">Nenhum cliente cadastrado.</td>
     </tr>
-<% } %>
 
 //6.30
 <% } else { 
@@ -119,47 +122,44 @@ router.get('/', function(req, res) {
 npm start
 
 //6.32
-function insert(customer, callback){
-    global.conn.collection("customers").insertOne(customer, callback);
+async function insert(customer){
+    const db = await connect();
+    return db.collection("customers").insertOne(customer);
 }
 
 //6.33
 module.exports = { findAll, insert }
 
 //6.34
-/* POST new page. */
-router.post('/new', function(req, res, next) {
+router.post('/new', async function(req, res) {
     const nome = req.body.nome
-    const idade = parseInt(req.body.idade);
+    const idade = parseInt(req.body.idade)
     const uf = req.body.uf
-    global.db.insert({nome, idade, uf}, (err, result) => {
-            if(err) { return console.log(err) }
-            res.redirect('/?new=true')
-        })
-  })
+    await db.insert({nome, idade, uf});
+    res.redirect('/?new=true')
+})
 
 //6.35
 <td><a href="/edit/<%= customer._id %>">Editar</a></td>
 
 //6.36
-const ObjectId = require("mongodb").ObjectId;
-function findOne(id, callback){  
-    global.conn.collection("customers").findOne(new ObjectId(id), callback);
+const {MongoClient, ObjectId} = require("mongodb");
+//...
+async function findOne(id){ 
+    const db = await connect(); 
+    const objId = new ObjectId(id);
+    return db.collection("customers").findOne(objId);
 }
 
 //6.37
 module.exports = { findAll, insert, findOne }
 
 //6.38
-/* GET edit page. */
-router.get('/edit/:id', function(req, res, next) {
-    var id = req.params.id
-    global.db.findOne(id, (e, doc) => {
-        if(e) { return console.log(e) }
-        console.log(doc.nome)
-        res.render('new', { title: 'Edição de Cliente', doc: doc, action: '/edit/' + doc._id })
-      })
-  })
+router.get('/edit/:id', async function(req, res, next) {
+    const id = req.params.id
+    const doc = await db.findOne(id);
+    res.render('new', { title: 'Edição de Cliente', doc, action: '/edit/' + doc._id })
+})
 
 //6.39
 /* GET new page. */
@@ -190,23 +190,23 @@ router.get('/new', function(req, res, next) {
 </form>
 
 //6.41
-function update(id, customer, callback){
-    global.conn.collection("customers").updateOne({_id: new ObjectId(id)}, customer, callback);
+async function update(id, customer){
+    const filter = {_id: new ObjectId(id)};
+    const db = await connect();
+    return db.collection("customers").update(filter, customer);
 }
 
 module.exports = { findAll, insert, findOne, update }
 
 //6.42
-/* POST edit page. */
-router.post('/edit/:id', function(req, res) {
+router.post('/edit/:id', async function(req, res) {
   const id = req.params.id
   const nome = req.body.nome
   const idade = parseInt(req.body.idade)
   const uf = req.body.uf
-  global.db.update(id, {nome, idade, uf}, (e, result) => {
-        if(e) { return console.log(e) }
-        res.redirect('/?edit=true')
-    })
+  await db.update(id, {nome, idade, uf});
+  res.redirect('/?edit=true');
+})})
 })
 
 //6.43
@@ -216,29 +216,29 @@ router.post('/edit/:id', function(req, res) {
 </td>
 
 //6.44
-function deleteOne(id, callback){
-    global.conn.collection("customers").deleteOne({_id: new ObjectId(id)}, callback);
+async function deleteOne(id){
+    const db = await connect(); 
+    const filter = {_id: new ObjectId(id)};
+    return db.collection("customers").deleteOne(filter);
 }
 
 module.exports = { findAll, insert, findOne, update, deleteOne }
 
 //6.45
-/* GET delete page. */
-router.get('/delete/:id', function(req, res) {
-  var id = req.params.id
-  global.db.deleteOne(id, (e, r) => {
-        if(e) { return console.log(e) }
-        res.redirect('/?delete=true')
-      })
+router.get('/delete/:id', async function(req, res) {
+  const id = req.params.id
+  await db.deleteOne(id);
+  res.redirect('/?delete=true');
 })
 
 //6.46
 /* GET home page. */
-router.get('/', function(req, res) {
-  global.db.findAll((e, docs) => {
-      if(e) { return res.redirect('/?erro=' + e); }
-      res.render('index', { docs });
-  })
+router.get('/', async function(req, res) {
+  try{
+    res.render('index', {docs: await db.findAll()});
+  }catch(ex){
+    res.redirect(`/erro=${ex}`);
+  }
 })
 
 //6.47

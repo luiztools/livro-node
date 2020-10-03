@@ -1,27 +1,38 @@
-const mongoClient = require("mongodb").MongoClient
-mongoClient.connect("mongodb://localhost:27017/workshop", { useUnifiedTopology: true })
-            .then(conn => global.conn = conn.db("workshop"))
-            .catch(err => console.log(err))
-
-function findAll(callback){  
-    global.conn.collection("customers").find({}).toArray(callback);
+const {MongoClient, ObjectId} = require("mongodb");
+async function connect(){
+  if(global.db) return global.db;
+  const conn = await MongoClient.connect("mongodb://localhost:27017/", { useUnifiedTopology: true });
+  if(!conn) return new Error("Can't connect");
+  global.db = await conn.db("workshop");
+  return global.db;
 }
 
-function insert(customer, callback){
-    global.conn.collection("customers").insert(customer, callback);
+async function findAll(){  
+    const db = await connect();
+    return db.collection("customers").find().toArray();
 }
 
-const ObjectId = require("mongodb").ObjectId;
-function findOne(id, callback){  
-    global.conn.collection("customers").findOne(new ObjectId(id), callback);
+async function insert(customer){
+    const db = await connect();
+    return db.collection("customers").insertOne(customer);
 }
 
-function update(id, customer, callback){
-    global.conn.collection("customers").update({_id: new ObjectId(id)}, customer, callback);
+async function findOne(id){ 
+    const db = await connect(); 
+    const objId = new ObjectId(id);
+    return db.collection("customers").findOne(objId);
 }
 
-function deleteOne(id, callback){
-    global.conn.collection("customers").deleteOne({_id: new ObjectId(id)}, callback);
+async function update(id, customer){
+    const filter = {_id: new ObjectId(id)};
+    const db = await connect();
+    return db.collection("customers").update(filter, customer);
+}
+
+async function deleteOne(id){
+    const db = await connect(); 
+    const filter = {_id: new ObjectId(id)};
+    return db.collection("customers").deleteOne(filter);
 }
 
 module.exports = { findAll, insert, findOne, update, deleteOne }
