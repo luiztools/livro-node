@@ -75,7 +75,7 @@ router.patch('/clientes/:id', async function(req, res, next){
       console.log(ex);
       res.status(400).json({erro: `${ex}`});
     }
-})
+}) 
 
 // DELETE /clientes/{id}
 router.delete('/clientes/:id', async function(req, res, next){

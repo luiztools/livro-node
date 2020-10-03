@@ -535,14 +535,14 @@ npm install
 //5.33
 /* GET new page. */
 router.get('/new', function(req, res, next) {
-   res.render('new', { title: "Cadastro de Cliente", action: "/new" })
+   res.render('new', { title: "Cadastro de Cliente", action: "/new" });
  })
 
  //5.34
  /* POST new page. */
 router.post('/new', function(req, res, next) {
    //futuramente vamos salvar o cliente aqui
-   res.redirect('/?new=true')
+   res.redirect('/?new=true');
  })
 
  //5.35

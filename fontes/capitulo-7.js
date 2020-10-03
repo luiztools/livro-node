@@ -5,39 +5,27 @@ npm init
 npm i express mongodb body-parser
 
 //7.3
-const mongoClient = require("mongodb").MongoClient
-mongoClient.connect("mongodb://localhost:27017/workshop", { useUnifiedTopology: true })
-            .then(conn => global.conn = conn.db("workshop"))
-            .catch(err => console.log(err))
-
-module.exports = { }
-
-//7.4
-global.db = require('./db')
 const express = require('express');
 const app = express();         
 const bodyParser = require('body-parser');
 const port = 3000; //porta padrão
 
-//7.5
+//7.4
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//7.6
+//7.5
 //definindo as rotas
 const router = express.Router();
 router.get('/', (req, res) => res.json({ message: 'Funcionando!' }));
 app.use('/', router);
 
-//7.7
+//7.6
 //inicia o servidor
 app.listen(port);
 console.log('API funcionando!');
 
-//7.8
-node app
-
-//7.9
+//7.7
 const {MongoClient} = require("mongodb");
 async function connect(){
   if(global.db) return global.db;
@@ -47,22 +35,22 @@ async function connect(){
   return global.db;
 }
 
-//7.10
+//7.8
 router.get('/clientes', async function(req, res, next) {
-    try{
-      const db = await connect();
-      res.json(await db.collection("customers").find().toArray());
-    }
-    catch(ex){
-      console.log(ex);
-      res.status(400).json({erro: `${ex}`});
-    }
+  try{
+    const db = await connect();
+    res.json(await db.collection("customers").find().toArray());
+  }
+  catch(ex){
+    console.log(ex);
+    res.status(400).json({erro: `${ex}`});
+  }
 })
 
-//7.11
+//7.9
 const {MongoClient, ObjectId} = require("mongodb");
 
-//7.12
+//7.10
 router.get('/clientes/:id?', async function(req, res, next) {
     try{
       const db = await connect();
@@ -77,7 +65,7 @@ router.get('/clientes/:id?', async function(req, res, next) {
     }
 })
 
-//7.13
+//7.11
 router.post('/clientes', async function(req, res, next){
     try{
       const customer = req.body;
@@ -90,10 +78,10 @@ router.post('/clientes', async function(req, res, next){
     }
 })
 
-//7.14
+//7.12
 curl -X POST -d "{'nome':'Curl', 'idade': 11, 'uf': 'RJ'}" http://localhost:3000/clientes
 
-//7.15
+//7.13
 router.put('/clientes/:id', async function(req, res, next){
     try{
       const customer = req.body;
@@ -106,10 +94,10 @@ router.put('/clientes/:id', async function(req, res, next){
     }
 })
 
-//7.16
+//7.14
 curl -X PUT -d "{'nome':'Postman', 'idade': 20, 'uf': 'SP'}" http://localhost:3000/clientes/sfdsfsdfdsf9
 
-//7.17
+//7.15
 router.patch('/clientes/:id', async function(req, res, next){
     try{
       const customer = req.body;
@@ -123,10 +111,10 @@ router.patch('/clientes/:id', async function(req, res, next){
     }
 })
 
-//7.18
+//7.16
 curl -X PATCH -d "{'idade':53}" http://localhost:3000/clientes/sfsdfdsfsdfdsf9
 
-//7.19
+//7.17
 router.delete('/clientes/:id', async function(req, res, next){
     try{
       const db = await connect();
@@ -138,5 +126,5 @@ router.delete('/clientes/:id', async function(req, res, next){
     }
 })
 
-//7.20
+//7.18
 curl -X DELETE http://localhost:3000/clientes/9sdsfddsgs

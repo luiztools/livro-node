@@ -5,17 +5,17 @@ node -v
 node
 
 //2.3
-var x=0
-console.log(x)
+var x=0;
+console.log(x);
 
 //2.4
-console.log(x+1)
+console.log(x+1);
 
 //2.5
-console.log('Olá mundo!')
+console.log('Olá mundo!');
 
 //2.6
 node /documents/index.js
 
 //2.7
-console.log('Hello World')
+console.log('Hello World');
