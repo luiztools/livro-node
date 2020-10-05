@@ -114,21 +114,16 @@ p {
 }
 
 //9.22
-$('#myP').css('color', 'red')
+document.getElementById('#myP').style.color = 'red';
+document.getElementById('#myP').classList.add('nomeClasse');
 
 //9.23
-$('.paragrafoInicial')
+document.getElementsByClassName('.paragrafoInicial');
 
 //9.24
-$('.paragrafoInicial').hide()
-
-//9.25
-$('.paragrafoInicial').each(function(index, value) { 
-	//faz uma ou mais operações sobre todos os parágrafos iniciais
-})
-
-//9.26
-$('.paragrafoInicial').css('font-family':'Calibri')
+const col = document.getElementsByClassName("teste");
+for(let item of col)
+  item.style.display = "none";
 
 //9.27
 <link href="css/estilos.css" rel="stylesheet" />
@@ -213,7 +208,7 @@ table tbody tr:hover{
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Exemplo JQuery</title>
+    <title>Exemplo DOM</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" />
   </head>
 …
@@ -287,52 +282,53 @@ table tbody tr:hover{
 </div>
 
 //9.56
-<div class="alert alert-success">
+<div id="alertListagem" class="alert alert-success">
     <strong>Successo!</strong> Blá blá blá!
 </div>
 
 //9.57
-$(document).ready(function(){
-    loadTable();
-    $('#divCadastro,.alert').hide();
-
-    //restante do código
-})
+document.addEventListener("DOMContentLoaded", function(event) { 
+    const alertListagem = document.querySelector('#alertListagem');
+    alertListagem.style.display ="none";
 
 //9.58
-function updateDatabase(data, callback){
-    const json = {};
-    data.forEach(item => json[item['name']] = item['value']);
+updateDatabase(data)
+    .then(result => {
+        const cliente = result.ops[0];
+        alertListagem.innerHTML = `<strong>Sucesso!</strong> Cliente ${cliente.nome} cadastrado com sucesso!`; 
+        alertListagem.style.display = "block";
+        setTimeout(() => { alertListagem.style.display = "none" }, 2000);
 
-    $.post(webApiDomain + '/clientes', json, function(data){
-        $('.alert-success').html('<strong>Sucesso!</strong> Cliente cadastrado com sucesso!');
-        $('.alert-success').show(1000, function(){
-            setTimeout(function(){ $('.alert-success').hide(1000) }, 2000);
-        })
-        callback();
+        updateTable(cliente);
     })
-}
+    .catch(error => alert(`Ocorreu um erro: ${error}`));
 
 //9.59
-<div class="alert alert-danger">
+<div id="alertCadastro" class="alert alert-danger">
     <strong>Erro!</strong> Nome é obrigatório!
 </div>
 
 //9.60
-$('form').submit(function(event){
-    event.preventDefault();
+const frmCadastro = document.getElementById("frmCadastro");
+frmCadastro.onsubmit = (evt) => {
+    evt.preventDefault();
 
-    if($('input[name="nome"]').val() === ''){
-            $('.alert-danger').show(1000, function(){
-                setTimeout(function(){ $('.alert-danger').hide(1000) }, 2000);
-            })
-            return;
-        }
+    if(!document.querySelector('input[name="nome"]').value){
+        alertCadastro.innerHTML = '<strong>Erro!</strong> O campo nome é obrigatório!'; 
+        alertCadastro.style.display = "block";
+        setTimeout(() => { alertCadastro.style.display = "none" }, 3000);
+        return false;
+    }
 
-    const data = $(this).serializeArray();
-    updateDatabase(data, loadTable);
-    $('#divListagem,#divCadastro').toggle();
-})
+    const data = new FormData(frmCadastro);
+    updateDatabase(data)
+        .then(result => {
+            const cliente = result.ops[0];
+            exibirMensagem('#alertListagem', `<strong>Sucesso!</strong> Cliente ${cliente.nome} cadastrado com sucesso!`);
+            updateTable(cliente);
+        })
+        .catch(error => alert(`Ocorreu um erro: ${error}`));
+}
 
 //9.61
 <input type="submit" value="Salvar" class="btn btn-primary" />
@@ -359,48 +355,20 @@ $('form').submit(function(event){
 </div>
 
 //9.64
-function loadTable(){
-    const tbody = $('table > tbody');
-    tbody.empty()
-    $.getJSON(webApiDomain + '/clientes', function(data){
-        data.forEach(item =>{
-            let linha = '<td>' + item.nome + '</td><td>' + item.idade + '</td><td>' + item.uf + '</td>';
-            tbody.append('<tr>' + linha + '<td><a href="#" class="btn btn-danger" data-id="' + item._id + '">x</a></td></tr>');
-        })
-    })
-}
+linha += `<tr><td>${cliente.nome}</td><td>${cliente.idade}</td><td>${cliente.uf}</td><td><input type="button" class="btn btn-danger" value="X" data-id="${cliente._id}" /></td></tr>`;
 
 //9.65
-$('table').on('click','a[class="btn btn-danger"]', function(){
-    if(confirm('Tem certeza que deseja excluir este cliente?')){
-        const input = $(this);
-        const id = input.attr('data-id');
-        deleteCustomer(id, function(){
-            input.closest('tr').remove();
-        })
-    }
-    return false;
-})
-
-//9.66
-function deleteCustomer(id, callback){
-    $.ajax({
-        url: webApiDomain + '/clientes/' + id,
-        method: 'DELETE',
-        success: function(result) {
-            $('.alert-success').html('<strong>Sucesso!</strong> Cliente excluído com sucesso!');
-            $('.alert-success').show(1000, function(){
-                setTimeout(function(){ $('.alert-success').hide(1000) }, 2000);
-            })
-            callback();
-        }
-    })
+function exibirMensagem(selector, html){
+    const div = document.querySelector(selector);
+    div.innerHTML = html; 
+    div.style.display = "block";
+    setTimeout(() => { div.style.display = "none" }, 2000);
 }
 
-//9.67
-<form action="" method="" role="form">
+//9.66
+<form id="frmCadastro" action="" method="" role="form">
 
-//9.68
+//9.67
 <form action="" method="" role="form">
     <div class="form-group">
         <label>Nome: <input type="text" name="nome" class="form-control" /></label>
@@ -421,7 +389,7 @@ function deleteCustomer(id, callback){
     </div>
 </form>
 
-//9.69
+//9.68
 <div class="radio">
 	<label><input type="radio" name="optradio">Option 1</label>
 </div>
@@ -432,7 +400,7 @@ function deleteCustomer(id, callback){
 	<label><input type="radio" name="optradio">Option 3</label>
 </div>
 
-//9.70
+//9.69
 if(location.href.indexOf('delete=true') != -1){
     alert('Cliente excluído com sucesso!');
 }
@@ -446,14 +414,14 @@ else if(location.href.indexOf('erro') != -1){
     alert('Ocorreu um erro!');
 }
 
-//9.71
+//9.70
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/scripts-index.js"></script>
 </body>
 </html>
 
-//9.72
+//9.71
 <head>
   <title>CRUD de Clientes</title>
   <meta charset="utf-8" />
@@ -461,11 +429,11 @@ else if(location.href.indexOf('erro') != -1){
   <link href="https://bootswatch.com/4/cyborg/bootstrap.min.css" rel="stylesheet" />
 </head>
 
-//9.73
+//9.72
 <div class="container">
   <h1>Listagem de Clientes</h1>
   <p>Clientes já cadastrados no sistema.</p>
-  <div class="alert alert-success">
+  <div id="alertListagem" class="alert alert-success">
       <strong>Successo!</strong> Cliente cadastrado com sucesso!
     </div>
   <table class="table table-striped table-bordered table-hover">
@@ -495,13 +463,14 @@ else if(location.href.indexOf('erro') != -1){
   <a href="/new" class="btn btn-primary">Cadastrar Novo</a>
 </div>
 
-//9.74
+//9.73
+const alertListagem = document.getElementById("alertListagem");
+
 function alertar(mensagem){
-    $('.alert-success').html('<strong>Sucesso!</strong> ' + mensagem);
-    $('.alert-success').show(1000, function(){
-        setTimeout(function(){ $('.alert-success').hide(1000) }, 2000);
-    })
-}
+    alertListagem.innerHTML = `<strong>Sucesso!</strong> ${mensagem}`;
+    alertListagem.style.display = "block";
+    setTimeout(() => { alertListagem.style.display = "none"; }, 2000)
+} 
 
 if(location.href.indexOf('delete=true') != -1){
     alertar('Cliente excluído com sucesso!');
@@ -515,8 +484,11 @@ else if(location.href.indexOf('new=true') != -1){
 else if(location.href.indexOf('erro') != -1){
     alertar('Ocorreu um erro!');
 }
+else{
+    alertListagem.style.display = "none";
+}
 
-//9.75
+//9.74
 <head>
     <title>CRUD de Clientes</title>
     <meta charset="utf-8" />
@@ -524,16 +496,16 @@ else if(location.href.indexOf('erro') != -1){
     <link href="https://bootswatch.com/4/cyborg/bootstrap.min.css" rel="stylesheet" />
   </head>
 
-//9.76
+//9.75
 <div class="container">
     <h1>
         <%= title %>
     </h1>
     <p>Preencha os dados abaixo para salvar o cliente.</p>
-    <div class="alert alert-danger col-sm-6">
+    <div id="alertCadastro" class="alert alert-danger col-sm-6">
       <strong>Erro!</strong> Nome é um dado obrigatório!
     </div>
-    <form action="<%= action %>" method="POST" role="form" class="form-horizontal">
+    <form id="frmCadastro" action="<%= action %>" method="POST" role="form" class="form-horizontal">
         <div class="form-group">
           <label class="control-label" for="nome">Nome: 
               <input type="text" id="nome" name="nome" value="<%= doc.nome %>" class="form-control" />
@@ -561,23 +533,21 @@ else if(location.href.indexOf('erro') != -1){
     </form>
 </div>
 
-//9.77
-$(document).ready(function(){
-    $('.alert-danger').hide();
+//9.76
+document.addEventListener('DOMContentLoaded', (event) => {
+    const alertCadastro = document.getElementById("alertCadastro");
+    alertCadastro.style.display = "none";
 
-    $('form').submit(function (event) {
-    
-        if ($('#nome').val() === ''
-            || $('#idade').val() === '') {
-            $('.alert-danger').show(1000, function () {
-                setTimeout(function () { $('.alert-danger').hide(1000) }, 2000);
-            })
-            event.preventDefault();
+    document.getElementById("frmCadastro").onsubmit = (evt) => {
+        if(!document.getElementById("nome").value){
+            alertCadastro.style.display = "block";
+            setTimeout(() => { alertCadastro.style.display = "none"; }, 2000);
+            evt.preventDefault()
         }
-    })
+    }
 })
 
-//9.78
+//9.77
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/scripts-new.js"></script>

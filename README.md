@@ -24,14 +24,17 @@ Projeto de web API usando Node.js + MongoDB, do capítulo 7.
 ## calculadora
 Projeto de calculadora com HTML e JS Client-Side, do capítulo 8.
 
-## exemplojquery
-Projeto de aplicação web usando HTML+JS com JQuery, do capítulo 8.
-
-## exemploajax
-Projeto de aplicação web usando HTML+JS com JQuery e Ajax, do capítulo 8.
+## exemplojavascript
+Projeto de aplicação web de cadastro com JS Client-Side, do capítulo 8.
 
 ## exemplocss
 Projeto de aplicação web iniciada no capítulo 8, mas adicionando CSS, do capítulo 9.
 
 ## crudbootstrap
 Projeto de aplicação web iniciado no capítulo 6, mas adicionando Bootstrap, do capítulo 9.
+
+## exemplojquery
+Projeto de aplicação web usando HTML+JS com JQuery, do Apêndice 2.
+
+## exemplojqueryajax
+Projeto de aplicação web usando HTML+JS com JQuery e Ajax, do Apêndice 2.

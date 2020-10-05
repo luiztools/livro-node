@@ -5,12 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://bootswatch.com/4/cyborg/bootstrap.min.css" rel="stylesheet" />
-  </head>
+  </head> 
   <body>
     <div class="container">
       <h1>Listagem de Clientes</h1>
       <p>Clientes já cadastrados no sistema.</p>
-      <div class="alert alert-success">
+      <div id="alertListagem" class="alert alert-success">
           <strong>Successo!</strong> Cliente cadastrado com sucesso!
         </div>
       <table class="table table-striped table-bordered table-hover">
@@ -30,7 +30,7 @@
                 <td><%= customer.uf %></td>
                 <td>
                   <a href="/edit/<%= customer._id %>" class="btn btn-info">edit</a>
-                  <a href="/delete/<%= customer._id %>" class="btn btn-danger" onclick="return confirm('Tem certeza?');">x</a>
+                  <a href="/delete/<%= customer._id %>" class="btn btn-danger" onclick="return confirm('Tem certeza?');">X</a>
                 </td>
               </tr>
               <% }) 

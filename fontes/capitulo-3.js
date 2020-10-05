@@ -65,10 +65,10 @@ let y = i + 2;
 console.log('Valor do i: ' + i);
 
 //3.11
-function soma(num1, num2){ return num1 + num2 }
+function somar(num1, num2){ return num1 + num2; }
 
 //3.12
-var somar = function(num1, num2) { return num1 + num2 }
+const somar = function(num1, num2) { return num1 + num2; }
 
 //3.13
 somar(1,2);
@@ -77,7 +77,7 @@ somar(1,2);
 outraFuncao(somar);
 
 //3.15
-var somar = (num1,num2) => num1 + num2;
+const somar = (num1,num2) => num1 + num2;
 
 //3.16
 const nome = 'Luiz';
@@ -103,11 +103,11 @@ str = '1.5';
 console.log(parseFloat(str));
 
 //3.20
-for (var i=0; i < 10; i++)
+for (let i=0; i < 10; i++)
    console.log('i=' + i);
 
 //3.21
-for (var i=0; i < 10; i++){
+for (let i=0; i < 10; i++){
 	console.log("i=" + i);
 	//outra instrução qualquer, quantas quiser
 }

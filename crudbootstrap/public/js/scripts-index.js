@@ -1,9 +1,10 @@
+const alertListagem = document.getElementById("alertListagem");
+
 function alertar(mensagem){
-    $('.alert-success').html('<strong>Sucesso!</strong> ' + mensagem)
-    $('.alert-success').show(1000, function(){
-        setTimeout(function(){ $('.alert-success').hide(1000) }, 2000)
-    })
-}
+    alertListagem.innerHTML = `<strong>Sucesso!</strong> ${mensagem}`;
+    alertListagem.style.display = "block";
+    setTimeout(() => { alertListagem.style.display = "none"; }, 2000);
+} 
 
 if(location.href.indexOf('delete=true') != -1){
     alertar('Cliente excluído com sucesso!');
@@ -18,5 +19,5 @@ else if(location.href.indexOf('erro') != -1){
     alertar('Ocorreu um erro!');
 }
 else{
-    $('.alert-success').hide()
+    alertListagem.style.display = "none";
 }

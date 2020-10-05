@@ -1,13 +1,12 @@
-$(document).ready(function(){
-    $('.alert-danger').hide()
+document.addEventListener('DOMContentLoaded', (event) => {
+    const alertCadastro = document.getElementById("alertCadastro");
+    alertCadastro.style.display = "none";
 
-    $('form').submit(function (event) {
-    
-        if ($('#nome').val() === '') {
-            $('.alert-danger').show(1000, function () {
-                setTimeout(function () { $('.alert-danger').hide(1000) }, 2000)
-            })
-            event.preventDefault()
+    document.getElementById("frmCadastro").onsubmit = (evt) => {
+        if(!document.getElementById("nome").value){
+            alertCadastro.style.display = "block";
+            setTimeout(() => { alertCadastro.style.display = "none"; }, 2000);
+            evt.preventDefault()
         }
-    })
+    }
 })

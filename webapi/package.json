@@ -4,6 +4,7 @@
   "description": "A web api in Node.js with MongoDB",
   "main": "app.js",
   "scripts": {
+    "start": "node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "LuizTools",
@@ -12,6 +13,6 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongodb": "^3.5.8"
+    "mongodb": "^3.6.2"
   }
 }

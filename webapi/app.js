@@ -42,7 +42,7 @@ router.post('/clientes', async function(req, res, next){
     try{
       const customer = req.body;
       const db = await connect();
-      res.json(await db.collection("customers").insert(customer));
+      res.json(await db.collection("customers").insertOne(customer));
     }
     catch(ex){
       console.log(ex);

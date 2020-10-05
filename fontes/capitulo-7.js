@@ -66,11 +66,11 @@ router.get('/clientes/:id?', async function(req, res, next) {
 })
 
 //7.11
-router.post('/clientes', async function(req, res, next){
+router.post('/clientes', async function(req, res){
     try{
       const customer = req.body;
       const db = await connect();
-      res.json(await db.collection("customers").insert(customer));
+      res.json(await db.collection("customers").insertOne(customer));
     }
     catch(ex){
       console.log(ex);

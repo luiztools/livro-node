@@ -12,10 +12,10 @@
           <%= title %>
       </h1>
       <p>Preencha os dados abaixo para salvar o cliente.</p>
-      <div class="alert alert-danger col-sm-6">
+      <div id="alertCadastro" class="alert alert-danger col-sm-6">
         <strong>Erro!</strong> Nome é um dado obrigatório!
       </div>
-      <form action="<%= action %>" method="POST" role="form" class="form-horizontal">
+      <form id="frmCadastro" action="<%= action %>" method="POST" role="form" class="form-horizontal">
           <div class="form-group">
             <label class="control-label" for="nome">Nome: 
                 <input type="text" id="nome" name="nome" value="<%= doc.nome %>" class="form-control" />
