@@ -20,7 +20,7 @@ function exibirMensagem(){
 
 //8.5
 function exibirUF(uf){
-	alert(uf)
+	alert(uf);
 }
 
 <select onchange="exibirUF(this.value)">
@@ -45,10 +45,10 @@ function exibirMensagem(msg){
 
 //8.8
 function validarNumeros(e){
-	var unicode=e.charCode? e.charCode : e.keyCode
+	var unicode=e.charCode? e.charCode : e.keyCode;
 	if (unicode!=8){ //8 = backspace
 	        if (unicode<48||unicode>57) //se não é um número
-            	return false //disable key press
+            	return false; //disable key press
     	}
 }
 
@@ -97,10 +97,10 @@ function validarNumeros(e){
 //8.10
 <script>
     function atualizarDisplay(btn){
-        const display = document.getElementById('display')
-        if(display.value.length === 9) return
-        if(display.value === '0') display.value = btn.value
-        else display.value += btn.value
+        const display = document.getElementById('display');
+        if(display.value.length === 9) return;
+        if(display.value === '0') display.value = btn.value;
+        else display.value += btn.value;
     }
 </script>
 
@@ -109,7 +109,7 @@ function validarNumeros(e){
 
 //8.12
 function limparDisplay(){
-    document.getElementById('display').value = '0'
+    document.getElementById('display').value = '0';
 }
 
 //8.13
@@ -119,10 +119,10 @@ function limparDisplay(){
 var operador = ''
 var valor1 = 0
 function atualizarOperacao(btn){
-            const display = document.getElementById('display')
-            operador = btn.value
-            valor1 = parseInt(display.value)
-            display.value = '0'
+            const display = document.getElementById('display');
+            operador = btn.value;
+            valor1 = parseInt(display.value);
+            display.value = '0';
 }
 
 //8.15
@@ -130,11 +130,11 @@ function atualizarOperacao(btn){
 
 //8.16
 function calcularOperacao(){
-    const display = document.getElementById('display')
-    const valor2 = parseInt(display.value)
-    valor1 = eval(valor1+operador+valor2)
-    display.value = valor1
-    operador = ''
+    const display = document.getElementById('display');
+    const valor2 = parseInt(display.value);
+    valor1 = eval(valor1+operador+valor2);
+    display.value = valor1;
+    operador = '';
 }
 
 //8.17
@@ -143,7 +143,7 @@ function calcularOperacao(){
 //8.18
 function manipularTeclado(){
     if(/[0-9]/.test(event.key))
-        atualizarDisplay({value: event.key})
+        atualizarDisplay({value: event.key});
 }
 
 //8.19
@@ -204,30 +204,30 @@ $(document).ready(function(){
 
 //8.27
 $(document).ready(function(){
-    $('#divListagem').hide()
+    $('#divListagem').hide();
 })
 
 //8.28
 $(document).ready(function(){
-    $('#divListagem').hide()
+    $('#divListagem').hide();
 
     $('#btnListar').click(function(){
-        $('#divListagem').show()
-        $('#divCadastro').hide()
+        $('#divListagem').show();
+        $('#divCadastro').hide();
     })
 
     $('#btnCadastrar').click(function(){
-        $('#divListagem').hide()
-        $('#divCadastro').show()
+        $('#divListagem').hide();
+        $('#divCadastro').show();
     })
 })
 
 //8.29
 $(document).ready(function(){
-    $('#divListagem').hide()
+    $('#divListagem').hide();
 
     $('#btnListar,#btnCadastrar').click(function(){
-        $('#divListagem,#divCadastro').toggle()
+        $('#divListagem,#divCadastro').toggle();
     })
 })
 
@@ -278,23 +278,23 @@ $(document).ready(function(){
 
 //8.32
 $('form').submit(function(event){
-    const data = $(this).serializeArray()
+    const data = $(this).serializeArray();
     
-    let linha = ''
-    data.forEach(item => linha += '<td>' + item.value + '</td>')
+    let linha = '';
+    data.forEach(item => linha += '<td>' + item.value + '</td>');
 
     if($('table > tbody > tr > td').length === 1)//se tem apenas uma TD, é a default
-        $('table > tbody').empty()
+        $('table > tbody').empty();
 
-    $('table > tbody').append('<tr>' + linha + '<td><input type="button" value="X" /></td></tr>')
-    $('#divListagem,#divCadastro').toggle()
-    event.preventDefault()
+    $('table > tbody').append('<tr>' + linha + '<td><input type="button" value="X" /></td></tr>');
+    $('#divListagem,#divCadastro').toggle();
+    event.preventDefault();
 })
 
 //8.33
 $('table').on('click','input[value="X"]', function(){
     if(confirm('Tem certeza que deseja excluir este cliente?'))
-        $(this).closest('tr').remove()
+        $(this).closest('tr').remove();
 })
 
 //8.34
@@ -314,41 +314,41 @@ $.getJSON('/clientes', function(jsonData){
            });
 })
 
-element.load(url)
+element.load(url);
 
 //8.38
-$('#estados').load('/estados')
+$('#estados').load('/estados');
 
 //8.39
 function updateTable(data){
     let linha = ''
-    data.forEach(item => linha += '<td>' + item.value + '</td>')
+    data.forEach(item => linha += '<td>' + item.value + '</td>');
 
     if($('table > tbody > tr > td').length === 1)//se tem apenas uma TD, é a default
-        $('table > tbody').empty()
+        $('table > tbody').empty();
 
-    $('table > tbody').append('<tr>' + linha + '<td><input type="button" value="X" /></td></tr>')
-    $('#divListagem,#divCadastro').toggle()
+    $('table > tbody').append('<tr>' + linha + '<td><input type="button" value="X" /></td></tr>');
+    $('#divListagem,#divCadastro').toggle();
 }
 
 //8.40
 $('form').submit(function(event){
-    const data = $(this).serializeArray()
+    const data = $(this).serializeArray();
     
-    updateTable(data)
+    updateTable(data);
     
-    event.preventDefault()
+    event.preventDefault();
 })
 
 //8.41
 const webApiDomain = 'http://localhost:3000'
 function updateDatabase(data, callback){
-    const json = {}
+    const json = {};
     data.forEach(item => json[item['name']] = item['value'])
 
     $.post(webApiDomain + '/clientes', json, function(result){
-        alert('Cliente cadastrado com sucesso!')
-        callback(data)
+        alert('Cliente cadastrado com sucesso!');
+        callback(data);
     })
 }
 
@@ -363,16 +363,16 @@ $('form').submit(function(event){
 npm install cors
 
 //8.44
-app.use(require('cors')())
+app.use(require('cors')());
 
 //8.45
 function loadTable(){
-    const tbody = $('table > tbody')
-    tbody.empty()
+    const tbody = $('table > tbody');
+    tbody.empty();
     $.getJSON(webApiDomain + '/clientes', function(data){
         data.forEach(item =>{
-            let linha = '<td>' + item.nome + '</td><td>' + item.idade + '</td><td>' + item.uf + '</td>'
-            tbody.append('<tr>' + linha + '<td><input type="button" value="X" /></td></tr>')
+            let linha = '<td>' + item.nome + '</td><td>' + item.idade + '</td><td>' + item.uf + '</td>';
+            tbody.append('<tr>' + linha + '<td><input type="button" value="X" /></td></tr>');
         })
     })
 }
@@ -380,16 +380,16 @@ function loadTable(){
 //8.46
 $(document).ready(function(){
     
-    loadTable()
+    loadTable();
 
 //8.47
 function loadTable(){
-    const tbody = $('table > tbody')
-    tbody.empty()
+    const tbody = $('table > tbody');
+    tbody.empty();
     $.getJSON(webApiDomain + '/clientes', function(data){
         data.forEach(item =>{
-            let linha = '<td>' + item.nome + '</td><td>' + item.idade + '</td><td>' + item.uf + '</td>'
-            tbody.append('<tr>' + linha + '<td><input type="button" value="X" data-id="' + item._id + '" /></td></tr>')
+            let linha = '<td>' + item.nome + '</td><td>' + item.idade + '</td><td>' + item.uf + '</td>';
+            tbody.append('<tr>' + linha + '<td><input type="button" value="X" data-id="' + item._id + '" /></td></tr>');
         })
     })
 }
@@ -409,18 +409,18 @@ function deleteCustomer(id, callback){
 //8.49
 $('table').on('click','input[value="X"]', function(){
     if(confirm('Tem certeza que deseja excluir este cliente?')){
-        const input = $(this)
-        const id = input.attr('data-id')
+        const input = $(this);
+        const id = input.attr('data-id');
         deleteCustomer(id, function(){
-            input.closest('tr').remove()
+            input.closest('tr').remove();
         })
     }
 })
 
 //8.50
 $('form').submit(function(event){
-    const data = $(this).serializeArray()
-    updateDatabase(data, loadTable)
-    $('#divListagem,#divCadastro').toggle()
-    event.preventDefault()
+    const data = $(this).serializeArray();
+    updateDatabase(data, loadTable);
+    $('#divListagem,#divCadastro').toggle();
+    event.preventDefault();
 })

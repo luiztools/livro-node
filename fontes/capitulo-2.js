@@ -5,7 +5,7 @@ node -v
 node
 
 //2.3
-var x=0;
+let x=0;
 console.log(x);
 
 //2.4

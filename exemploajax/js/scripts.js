@@ -1,6 +1,6 @@
 function updateTable(data){
-    let linha = ''
-    data.forEach(item => linha += '<td>' + item.value + '</td>')
+    let linha = '';
+    data.forEach(item => linha += '<td>' + item.value + '</td>');
 
     if($('table > tbody > tr > td').length === 1)//se tem apenas uma TD, é a default
         $('table > tbody').empty()

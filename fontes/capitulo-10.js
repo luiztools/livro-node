@@ -17,7 +17,7 @@ require('dotenv').config()
 //10.5
 app.get("/meu-servico", function(request, response) {
     var datastore = require("db-module")(config);
-    datastore.get(req.query.someKey)
+    datastore.get(req.query.someKey);
     // etc, ...
 })
 
@@ -36,7 +36,7 @@ if(typeof exports == 'undefined'){
 
     // seu codigo vai aqui
    exports.test = function(){
-        return 'hello world'
+        return 'hello world';
     };
 
 })(typeof exports === 'undefined'? this['mymodule']={}: exports);
@@ -66,10 +66,10 @@ console.log(myObject);
 
 //10.13
 const util = require('util')
-console.log(util.inspect(myObject, {showHidden: false, depth: null}))
+console.log(util.inspect(myObject, {showHidden: false, depth: null}));
 
 //10.14
-console.log(JSON.stringify(myObject, null, 4))
+console.log(JSON.stringify(myObject, null, 4));
 
 //10.15
 npm install helmet

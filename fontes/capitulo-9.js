@@ -293,23 +293,23 @@ table tbody tr:hover{
 
 //9.57
 $(document).ready(function(){
-    loadTable()
-    $('#divCadastro,.alert').hide()
+    loadTable();
+    $('#divCadastro,.alert').hide();
 
     //restante do código
 })
 
 //9.58
 function updateDatabase(data, callback){
-    const json = {}
-    data.forEach(item => json[item['name']] = item['value'])
+    const json = {};
+    data.forEach(item => json[item['name']] = item['value']);
 
     $.post(webApiDomain + '/clientes', json, function(data){
-        $('.alert-success').html('<strong>Sucesso!</strong> Cliente cadastrado com sucesso!')
+        $('.alert-success').html('<strong>Sucesso!</strong> Cliente cadastrado com sucesso!');
         $('.alert-success').show(1000, function(){
-            setTimeout(function(){ $('.alert-success').hide(1000) }, 2000)
+            setTimeout(function(){ $('.alert-success').hide(1000) }, 2000);
         })
-        callback()
+        callback();
     })
 }
 
@@ -320,18 +320,18 @@ function updateDatabase(data, callback){
 
 //9.60
 $('form').submit(function(event){
-    event.preventDefault()
+    event.preventDefault();
 
     if($('input[name="nome"]').val() === ''){
             $('.alert-danger').show(1000, function(){
-                setTimeout(function(){ $('.alert-danger').hide(1000) }, 2000)
+                setTimeout(function(){ $('.alert-danger').hide(1000) }, 2000);
             })
-            return
+            return;
         }
 
-    const data = $(this).serializeArray()
-    updateDatabase(data, loadTable)
-    $('#divListagem,#divCadastro').toggle()
+    const data = $(this).serializeArray();
+    updateDatabase(data, loadTable);
+    $('#divListagem,#divCadastro').toggle();
 })
 
 //9.61
@@ -360,12 +360,12 @@ $('form').submit(function(event){
 
 //9.64
 function loadTable(){
-    const tbody = $('table > tbody')
+    const tbody = $('table > tbody');
     tbody.empty()
     $.getJSON(webApiDomain + '/clientes', function(data){
         data.forEach(item =>{
-            let linha = '<td>' + item.nome + '</td><td>' + item.idade + '</td><td>' + item.uf + '</td>'
-            tbody.append('<tr>' + linha + '<td><a href="#" class="btn btn-danger" data-id="' + item._id + '">x</a></td></tr>')
+            let linha = '<td>' + item.nome + '</td><td>' + item.idade + '</td><td>' + item.uf + '</td>';
+            tbody.append('<tr>' + linha + '<td><a href="#" class="btn btn-danger" data-id="' + item._id + '">x</a></td></tr>');
         })
     })
 }
@@ -374,12 +374,12 @@ function loadTable(){
 $('table').on('click','a[class="btn btn-danger"]', function(){
     if(confirm('Tem certeza que deseja excluir este cliente?')){
         const input = $(this);
-        const id = input.attr('data-id')
+        const id = input.attr('data-id');
         deleteCustomer(id, function(){
             input.closest('tr').remove();
         })
     }
-    return false
+    return false;
 })
 
 //9.66
@@ -388,11 +388,11 @@ function deleteCustomer(id, callback){
         url: webApiDomain + '/clientes/' + id,
         method: 'DELETE',
         success: function(result) {
-            $('.alert-success').html('<strong>Sucesso!</strong> Cliente excluído com sucesso!')
+            $('.alert-success').html('<strong>Sucesso!</strong> Cliente excluído com sucesso!');
             $('.alert-success').show(1000, function(){
-                setTimeout(function(){ $('.alert-success').hide(1000) }, 2000)
+                setTimeout(function(){ $('.alert-success').hide(1000) }, 2000);
             })
-            callback()
+            callback();
         }
     })
 }
@@ -497,9 +497,9 @@ else if(location.href.indexOf('erro') != -1){
 
 //9.74
 function alertar(mensagem){
-    $('.alert-success').html('<strong>Sucesso!</strong> ' + mensagem)
+    $('.alert-success').html('<strong>Sucesso!</strong> ' + mensagem);
     $('.alert-success').show(1000, function(){
-        setTimeout(function(){ $('.alert-success').hide(1000) }, 2000)
+        setTimeout(function(){ $('.alert-success').hide(1000) }, 2000);
     })
 }
 
@@ -563,16 +563,16 @@ else if(location.href.indexOf('erro') != -1){
 
 //9.77
 $(document).ready(function(){
-    $('.alert-danger').hide()
+    $('.alert-danger').hide();
 
     $('form').submit(function (event) {
     
         if ($('#nome').val() === ''
             || $('#idade').val() === '') {
             $('.alert-danger').show(1000, function () {
-                setTimeout(function () { $('.alert-danger').hide(1000) }, 2000)
+                setTimeout(function () { $('.alert-danger').hide(1000) }, 2000);
             })
-            event.preventDefault()
+            event.preventDefault();
         }
     })
 })

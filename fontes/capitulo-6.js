@@ -132,11 +132,11 @@ module.exports = { findAll, insert }
 
 //6.34
 router.post('/new', async function(req, res) {
-    const nome = req.body.nome
-    const idade = parseInt(req.body.idade)
-    const uf = req.body.uf
+    const nome = req.body.nome;
+    const idade = parseInt(req.body.idade);
+    const uf = req.body.uf;
     await db.insert({nome, idade, uf});
-    res.redirect('/?new=true')
+    res.redirect('/?new=true');
 })
 
 //6.35
@@ -156,7 +156,7 @@ module.exports = { findAll, insert, findOne }
 
 //6.38
 router.get('/edit/:id', async function(req, res, next) {
-    const id = req.params.id
+    const id = req.params.id;
     const doc = await db.findOne(id);
     res.render('new', { title: 'Edição de Cliente', doc, action: '/edit/' + doc._id })
 })
@@ -164,7 +164,7 @@ router.get('/edit/:id', async function(req, res, next) {
 //6.39
 /* GET new page. */
 router.get('/new', function(req, res, next) {
-    res.render('new', { title: 'Cadastro de Cliente', doc: {} })
+    res.render('new', { title: 'Cadastro de Cliente', doc: {} });
   })
 
 //6.40
@@ -200,10 +200,10 @@ module.exports = { findAll, insert, findOne, update }
 
 //6.42
 router.post('/edit/:id', async function(req, res) {
-  const id = req.params.id
-  const nome = req.body.nome
-  const idade = parseInt(req.body.idade)
-  const uf = req.body.uf
+  const id = req.params.id;
+  const nome = req.body.nome;
+  const idade = parseInt(req.body.idade);
+  const uf = req.body.uf;
   await db.update(id, {nome, idade, uf});
   res.redirect('/?edit=true');
 })})
@@ -226,7 +226,7 @@ module.exports = { findAll, insert, findOne, update, deleteOne }
 
 //6.45
 router.get('/delete/:id', async function(req, res) {
-  const id = req.params.id
+  const id = req.params.id;
   await db.deleteOne(id);
   res.redirect('/?delete=true');
 })

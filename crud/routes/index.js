@@ -10,10 +10,10 @@ router.get('/new', function(req, res, next) {
 /* POST edit page. */
 router.post('/edit/:id', async function(req, res) {
   try{
-    const id = req.params.id
-    const nome = req.body.nome
-    const idade = parseInt(req.body.idade)
-    const uf = req.body.uf
+    const id = req.params.id;
+    const nome = req.body.nome;
+    const idade = parseInt(req.body.idade);
+    const uf = req.body.uf;
     await db.update(id, {nome, idade, uf});
     res.redirect('/?edit=true');
   }catch(ex){
@@ -24,7 +24,7 @@ router.post('/edit/:id', async function(req, res) {
 /* GET delete page. */
 router.get('/delete/:id', async function(req, res) {
   try{
-    const id = req.params.id
+    const id = req.params.id;
     await db.deleteOne(id);
     res.redirect('/?delete=true');
   }catch(ex){
@@ -35,7 +35,7 @@ router.get('/delete/:id', async function(req, res) {
 /* GET edit page. */
 router.get('/edit/:id', async function(req, res, next) {
   try{
-    const id = req.params.id
+    const id = req.params.id;
     const doc = await db.findOne(id);
     res.render('new', { title: 'Edição de Cliente', doc, action: '/edit/' + doc._id })
   }catch(ex){
@@ -55,11 +55,11 @@ router.get('/', async function(req, res) {
 /* POST new page. */
 router.post('/new', async function(req, res) {
   try{
-    const nome = req.body.nome
-    const idade = parseInt(req.body.idade)
-    const uf = req.body.uf
+    const nome = req.body.nome;
+    const idade = parseInt(req.body.idade);
+    const uf = req.body.uf;
     await db.insert({nome, idade, uf});
-    res.redirect('/?new=true')
+    res.redirect('/?new=true');
   }catch(ex){
     res.redirect(`/erro=${ex}`);
   }
