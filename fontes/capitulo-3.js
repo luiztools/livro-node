@@ -195,14 +195,14 @@ if(x % 2 === 0){
 }
 
 //3.35
-for(var i=1; i <= 20; i++){
+for(let i=1; i <= 20; i++){
     if(i % 2 === 0){
        console.log(i + ' é PAR!');
     }
  }
 
  //3.36
- for(var i=1; i <= 20; i++){
+ for(let i=1; i <= 20; i++){
     if(i % 2 == 0){
        console.log(i + ' é PAR!');
     }
@@ -210,7 +210,7 @@ for(var i=1; i <= 20; i++){
  }
 
  //3.37
- for(var i=1; i <= 20; i++){
+ for(let i=1; i <= 20; i++){
     if(i % 2 === 0){
        console.log(i + ' é PAR!');
     } else {
@@ -219,7 +219,7 @@ for(var i=1; i <= 20; i++){
  }
 
  //3.38
- for(var i=0; i < 10; i++){
+ for(let i=0; i < 10; i++){
     if(i >= 5){
        if(i <= 7){
           console.log('FUNCIONOU');
@@ -228,14 +228,14 @@ for(var i=1; i <= 20; i++){
  }
 
  //3.39
- for(var i=0; i < 10; i++){
+ for(let i=0; i < 10; i++){
     if(i >= 5 && i <= 7){
        console.log('FUNCIONOU');
     }
  }
 
  //3.40
- var letra = 'A';
+ const letra = 'A';
 switch (letra) {
  case 'A': console.log('Vogal A'); break;
  case 'E': console.log('Vogal E'); break;
@@ -281,11 +281,11 @@ for(var i=0; i < 10; i++)
 
 //3.49
 const numeros = [];
-for(var i=0; i < 10; i++)
+for(let i=0; i < 10; i++)
    numeros.push(1);
 
 //3.50
-for(var i=0; i < numeros.length; i++)
+for(let i=0; i < numeros.length; i++)
    console.log(numeros[i]);
 
 //3.51
