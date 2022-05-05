@@ -17,11 +17,11 @@ show collections
 db.customers.find()
 
 //6.7
-db.customers.insert({ nome: "Luiz", idade: 29 })
+db.customers.insertOne({ nome: "Luiz", idade: 29 })
 
 //6.8
 custArray = [{ nome : "Monica", idade : 31 }, { nome : "Teste", "uf" : "RS" }]
-db.customers.insert(custArray)
+db.customers.insertMany(custArray)
 
 //6.9
 db.customers.find().pretty()
@@ -69,7 +69,7 @@ npm install mongodb
 const {MongoClient} = require("mongodb");
 async function connect(){
   if(global.db) return global.db;
-  const conn = await MongoClient.connect("mongodb://localhost:27017/", { useUnifiedTopology: true });
+  const conn = await MongoClient.connect("mongodb://localhost:27017/");
   if(!conn) return new Error("Can't connect");
   global.db = await conn.db("workshop");
   return global.db;
@@ -193,7 +193,7 @@ router.get('/new', function(req, res, next) {
 async function update(id, customer){
     const filter = {_id: new ObjectId(id)};
     const db = await connect();
-    return db.collection("customers").update(filter, customer);
+    return db.collection("customers").updateOne(filter, {$set: customer});
 }
 
 module.exports = { findAll, insert, findOne, update }

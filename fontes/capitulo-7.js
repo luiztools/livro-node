@@ -7,12 +7,11 @@ npm i express mongodb body-parser
 //7.3
 const express = require('express');
 const app = express();         
-const bodyParser = require('body-parser');
 const port = 3000; //porta padrão
 
 //7.4
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 //7.5
 //definindo as rotas
@@ -29,7 +28,7 @@ console.log('API funcionando!');
 const {MongoClient} = require("mongodb");
 async function connect(){
   if(global.db) return global.db;
-  const conn = await MongoClient.connect("mongodb://localhost:27017/", { useUnifiedTopology: true });
+  const conn = await MongoClient.connect("mongodb://localhost:27017/");
   if(!conn) return new Error("Can't connect");
   global.db = await conn.db("workshop");
   return global.db;
@@ -86,7 +85,7 @@ router.put('/clientes/:id', async function(req, res, next){
     try{
       const customer = req.body;
       const db = await connect();
-      res.json(await db.collection("customers").update({_id: new ObjectId(req.params.id)}, customer));
+      res.json(await db.collection("customers").updateOne({_id: new ObjectId(req.params.id)}, {$set: customer}));
     }
     catch(ex){
       console.log(ex);
