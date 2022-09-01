@@ -2,7 +2,7 @@
 mongod --dbpath C:\mongo\data
 
 //6.2
-mongo
+mongosh
 
 //6.3
 show databases
@@ -17,10 +17,10 @@ show collections
 db.customers.find()
 
 //6.7
-db.customers.insertOne({ nome: "Luiz", idade: 29 })
+db.customers.insertOne({ nome: "Luiz", idade: 34 })
 
 //6.8
-custArray = [{ nome : "Monica", idade : 31 }, { nome : "Teste", "uf" : "RS" }]
+custArray = [{ nome : "Monica", idade : 34 }, { nome : "Teste", "uf" : "RS" }]
 db.customers.insertMany(custArray)
 
 //6.9
@@ -51,13 +51,13 @@ db.customers.find().skip(1).limit(10)
 db.customers.find().sort({idade: 1})
 
 //6.18
-db.customers.update({nome: "Luiz"}, {nome: "Luiz", idade: 32, uf: "RS"})
+db.customers.replaceOne({nome: "Luiz"}, {nome: "Luiz", idade: 34, uf: "RS"})
 
 //6.19
 db.customers.updateOne({_id: ObjectId("5ed3b02075696ebb44fba8f8")}, {$set: {idade: 28}})
 
 //6.20
-db.customers.update({nome: "LuizTools"}, {nome: "LuizTools", uf: "RS"}, {upsert: true})
+db.customers.replaceOne({nome: "LuizTools"}, {nome: "LuizTools", uf: "RS"}, {upsert: true})
 
 //6.21
 db.customers.deleteOne({nome: "Luiz"})
