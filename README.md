@@ -5,6 +5,8 @@ Neste repositório forneço os trechos dos fontes e os projetos completos. Abaix
 
 Me siga nas redes sociais: https://about.me/luiztools
 
+Receba novidades no Telegram: https://t.me/luiznews
+
 Conheça meus cursos online: https://www.luiztools.com.br/meus-cursos
 
 Conheça meus livros: https://www.luiztools.com.br/meus-livros
@@ -32,9 +34,3 @@ Projeto de aplicação web iniciada no capítulo 8, mas adicionando CSS, do cap�
 
 ## crudbootstrap
 Projeto de aplicação web iniciado no capítulo 6, mas adicionando Bootstrap, do capítulo 9.
-
-## exemplojquery
-Projeto de aplicação web usando HTML+JS com JQuery, do Apêndice 2.
-
-## exemplojqueryajax
-Projeto de aplicação web usando HTML+JS com JQuery e Ajax, do Apêndice 2.

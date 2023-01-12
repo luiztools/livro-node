@@ -2,7 +2,7 @@
 npm init
 
 //7.2
-npm i express mongodb body-parser
+npm i express mongodb
 
 //7.3
 const express = require('express');
@@ -28,9 +28,10 @@ console.log('API funcionando!');
 const {MongoClient} = require("mongodb");
 async function connect(){
   if(global.db) return global.db;
-  const conn = await MongoClient.connect("mongodb://localhost:27017/");
-  if(!conn) return new Error("Can't connect");
-  global.db = await conn.db("workshop");
+  const client = new MongoClient("mongodb://127.0.0.1:27017/");
+  await client.connect();
+
+  global.db = client.db("workshop");
   return global.db;
 }
 
