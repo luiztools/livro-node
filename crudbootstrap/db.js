@@ -25,14 +25,14 @@ async function findOne(id) {
 }
 
 async function update(id, customer) {
-    const filter = { _id: new ObjectId(id) };
+    const filter = { _id: ObjectId.createFromHexString(id) };
     const db = await connect();
     return db.collection("customers").replaceOne(filter, customer);
 }
 
 async function deleteOne(id) {
     const db = await connect();
-    const filter = { _id: new ObjectId(id) };
+    const filter = { _id: ObjectId.createFromHexString(id) };
     return db.collection("customers").deleteOne(filter);
 }
 

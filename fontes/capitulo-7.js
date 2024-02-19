@@ -55,7 +55,7 @@ router.get('/clientes/:id?', async function(req, res, next) {
     try{
       const db = await connect();
       if(req.params.id)
-        res.json(await db.collection("customers").findOne({_id: new ObjectId(req.params.id)}));
+        res.json(await db.collection("customers").findOne({_id: ObjectId.createFromHexString(req.params.id)}));
       else
         res.json(await db.collection("customers").find().toArray());
     }
@@ -86,7 +86,7 @@ router.put('/clientes/:id', async function(req, res, next){
     try{
       const customer = req.body;
       const db = await connect();
-      res.json(await db.collection("customers").updateOne({_id: new ObjectId(req.params.id)}, {$set: customer}));
+      res.json(await db.collection("customers").updateOne({_id: ObjectId.createFromHexString(req.params.id)}, {$set: customer}));
     }
     catch(ex){
       console.log(ex);
@@ -102,7 +102,7 @@ router.patch('/clientes/:id', async function(req, res, next){
     try{
       const customer = req.body;
       const db = await connect();
-      const id = {_id: new ObjectId(req.params.id)};
+      const id = {_id: ObjectId.createFromHexString(req.params.id)};
       res.json(await db.collection("customers").updateOne(id, {$set: customer}));
     }
     catch(ex){
@@ -118,7 +118,7 @@ curl -X PATCH -d "{'idade':53}" http://localhost:3000/clientes/sfsdfdsfsdfdsf9
 router.delete('/clientes/:id', async function(req, res, next){
     try{
       const db = await connect();
-      res.json(await db.collection("customers").deleteOne({_id: new ObjectId(req.params.id)}));
+      res.json(await db.collection("customers").deleteOne({_id: ObjectId.createFromHexString(req.params.id)}));
     }
     catch(ex){
       console.log(ex);

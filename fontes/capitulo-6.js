@@ -147,7 +147,7 @@ const {MongoClient, ObjectId} = require("mongodb");
 //...
 async function findOne(id){ 
     const db = await connect(); 
-    const objId = new ObjectId(id);
+    const objId = ObjectId.createFromHexString(id);
     return db.collection("customers").findOne(objId);
 }
 
@@ -191,7 +191,7 @@ router.get('/new', function(req, res, next) {
 
 //6.41
 async function update(id, customer){
-    const filter = {_id: new ObjectId(id)};
+    const filter = {_id: ObjectId.createFromHexString(id)};
     const db = await connect();
     return db.collection("customers").updateOne(filter, {$set: customer});
 }
@@ -218,7 +218,7 @@ router.post('/edit/:id', async function(req, res) {
 //6.44
 async function deleteOne(id){
     const db = await connect(); 
-    const filter = {_id: new ObjectId(id)};
+    const filter = {_id: ObjectId.createFromHexString(id)};
     return db.collection("customers").deleteOne(filter);
 }
 
