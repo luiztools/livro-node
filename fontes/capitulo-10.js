@@ -42,8 +42,8 @@ if(typeof exports == 'undefined'){
 })(typeof exports === 'undefined'? this['mymodule']={}: exports);
 
 //10.9
-var mymodule = require('./mymodule'),
-    sys = require('sys');
+const mymodule = require('./mymodule'),
+sys = require('sys');
 
 sys.puts(mymodule.test());
 

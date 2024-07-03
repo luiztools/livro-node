@@ -1,8 +1,8 @@
 //4.1
-npm install -g express-generator
+npm install -g https://github.com/luiztools/express-generator.git
 
 //4.2
-express -e --git workshop
+express --git workshop
 
 //4.3
 cd workshop
@@ -12,30 +12,30 @@ npm install
 npm start
 
 //4.5
-var app = require('../app');
-var debug = require('debug')('workshop:server');
-var http = require('http');
+const app = require('../app');
+const debug = require('debug')('workshop:server');
+const http = require('http');
 
-var port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-var server = http.createServer(app);
+const server = http.createServer(app);
 
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
 //4.6
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const index = require('./routes/index');
+const users = require('./routes/users');
 
 //4.7
-var app = express();
+const app = express();
 
 //4.8
 // view engine setup
@@ -57,8 +57,8 @@ module.exports = app;
 
 //4.10
 // códigos…
-var index = require('./routes/index');
-var users = require('./routes/users');
+const index = require('./routes/index');
+const users = require('./routes/users');
 
 // mais códigos...
 
@@ -66,8 +66,8 @@ app.use('/', index);
 app.use('/users', users);
 
 //4.11
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -101,8 +101,8 @@ app.set('view engine', 'ejs');
 res.render('index', { title: 'Express' });
 
 //4.16
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 router.get('/', function(req, res, next) {
   res.render('new', { title: 'Novo Cadastro' });
@@ -111,7 +111,7 @@ router.get('/', function(req, res, next) {
 module.exports = router;
 
 //4.17
-var new = require('./routes/new);
+const new = require('./routes/new);
 app.use('/new', new);
 
 //4.18

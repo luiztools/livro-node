@@ -116,8 +116,8 @@ function limparDisplay(){
 <td><input type="button" value="C" onclick="limparDisplay()"/></td>
 
 //8.14
-var operador = ''
-var valor1 = 0
+let operador = '';
+let valor1 = 0;
 function atualizarOperacao(btn){
             const display = document.getElementById('display');
             operador = btn.value;
